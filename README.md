@@ -16,7 +16,7 @@ Make sure you have **Node.js** (>=14.x) and **npm** or **yarn** installed.
 1. **Clone the repository**
    ```sh
    git clone https://github.com/Mr-Som3a/Test-I-O-TECH.git
-   cd userstore-table
+   cd Test-I-O-TECH.git
    ```
 2. **Install dependencies**
    ```sh
