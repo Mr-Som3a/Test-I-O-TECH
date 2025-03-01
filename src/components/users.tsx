@@ -117,19 +117,11 @@ const Users = () => {
                 <td className="px-3 py-4">{user.name}</td>
                 <td className="px-3 py-4">{user.username}</td>
                 <td className="px-3 py-4">
-                  <button onClick={() => handleDelete(user.id)}>
-                    <img
-                      src={Trash}
-                      className="w-[16px] h-[16px]"
-                      alt="Delete"
-                    />
+                  <button className="text-red-800" onClick={() => handleDelete(user.id)}>
+                   Delete
                   </button>
-                  <button onClick={() => handleUpdate(user)}>
-                    <img
-                      src={Pen}
-                      className="w-[16px] h-[16px]"
-                      alt="Edit"
-                    />
+                  <button className="text-cyan-500" onClick={() => handleUpdate(user)}>
+                    Edit
                   </button>
                 </td>
               </tr>
