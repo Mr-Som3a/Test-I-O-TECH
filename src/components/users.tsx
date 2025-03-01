@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { User } from "../model/interfaces";
 import { deleteUser, getUsers} from "../services/api";
 import UserModal from "./utility/user-modal";
-import Pen from "../assets/pen.svg"
-import Trash from "../assets/trash.svg"
+
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
