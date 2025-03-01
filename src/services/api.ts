@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../model/interfaces";
 
-const API_URL= "https://jsonplaceholder.typicode.com/users"
+const API_URL= process.env.FAKE_API_SERVICE!
 
 export const getUsers=async()=>{
     const {data} = await axios.get(API_URL)

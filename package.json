@@ -1,9 +1,9 @@
 {
+  "homepage": "https://mr-som3a.github.io/Test-I-O-TECH",
   "name": "test-i-o-tech",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://mr-som3a.github.io/Test-I-O-TECH/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
     "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-toastify": "^11.0.5",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.8",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",

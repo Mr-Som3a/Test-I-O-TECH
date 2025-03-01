@@ -3,6 +3,7 @@ import { User } from "../model/interfaces";
 import { deleteUser, getUsers, updateUser } from "../services/api";
 import UserModal from "./utility/user-modal";
 const {BASE_URL}=import.meta.env
+
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [usersLength, setUsersLength] = useState(0);
@@ -131,7 +132,7 @@ const Users = () => {
                 <td className="px-3 py-4">
                   <button onClick={() => handleDelete(user.id)}>
                     <img
-                      src={`${BASE_URL}src/assets/trash.svg`}
+                      src={`${BASE_URL}assets/trash.svg`}
                       className="w-[16px] h-[16px]"
                       alt=""
                     />
