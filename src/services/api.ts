@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "../model/interfaces";
-import dotenv from 'dotenv'
+
 const apiUrl = "https://jsonplaceholder.typicode.com/users";
 
 export const getUsers=async()=>{
