@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { User} from "../../model/interfaces";
-import { postUser } from "../../services/api";
+import { postUser, updateUser } from "../../services/api";
 
 interface Props {
   isOpen: boolean;
@@ -8,12 +8,13 @@ interface Props {
   title?: string;
   update?:boolean
   usersLength:number
+  editUser:User|null
   users:User[]
   setUsers: React.Dispatch<React.SetStateAction<User[]>>
 }
 
 
-const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update}: Props) => {
+const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,editUser}: Props) => {
   if (!isOpen) return null;
   const [formData, setFormData] = useState<User>({id:usersLength+1,name:"",username:""});
 
@@ -25,8 +26,17 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update}:
 
       console.log("Submitted Data:", formData);
     e.preventDefault();
-    if(update){
-
+    if(editUser){
+      console.log(editUser)
+      const index = users.indexOf(editUser);
+          try {
+            users[index] = { id: editUser.id, name: formData.name, username: formData.username };
+            const res = await updateUser(editUser.id, users[index]);
+            console.log(res);
+          } catch (error) {
+            console.log(error);
+          }
+          onClose();
     }else{
         try {
             setUsers([...users,formData])

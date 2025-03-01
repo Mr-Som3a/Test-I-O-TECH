@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { User } from "../model/interfaces";
-import { deleteUser, getUsers, updateUser } from "../services/api";
+import { deleteUser, getUsers} from "../services/api";
 import UserModal from "./utility/user-modal";
-const {BASE_URL}=import.meta.env
+import Pen from "../assets/pen.svg"
+import Trash from "../assets/trash.svg"
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [usersLength, setUsersLength] = useState(0);
+  const [editUser,setEditUser]=useState<User|null>(null)
   const [update, setUpdate] = useState(false);
   const [open, setOpen] = useState(false);
   const [sortField, setSortField] = useState<keyof User | null>(null);
@@ -42,7 +44,7 @@ const Users = () => {
   };
 
   // Filtering Function
-  const filteredUsers = users.filter((user) =>
+  const filteredUsers = users?.filter((user) =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -53,25 +55,9 @@ const Users = () => {
     setOpen(true);
   };
   const handleUpdate = async (user: User) => {
+    setEditUser(user)
     setUpdate(true);
     setOpen(true);
-    const updated = {
-      id: 32,
-      name: "up",
-      username: "up",
-    };
-    console.log(user);
-    const index = users.indexOf(user);
-    try {
-      users[index] = { id: 32, name: "up", username: "up" };
-      setUsers([...users]);
-      const res = await updateUser(user.id, updated);
-      setOpen(false);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-      setUsers(users);
-    }
   };
   const handleDelete = async (id: number) => {
     const updatedlist = users.filter((ele) => ele.id !== id);
@@ -98,6 +84,7 @@ const Users = () => {
         users={users}
         setUsers={setUsers}
         usersLength={usersLength}
+        editUser={editUser}
         isOpen={open}
         onClose={handleClose}
         title={update ? "Update User" : "Add User"}
@@ -132,16 +119,16 @@ const Users = () => {
                 <td className="px-3 py-4">
                   <button onClick={() => handleDelete(user.id)}>
                     <img
-                      src={`${BASE_URL}assets/trash.svg`}
+                      src={Trash}
                       className="w-[16px] h-[16px]"
-                      alt=""
+                      alt="Delete"
                     />
                   </button>
                   <button onClick={() => handleUpdate(user)}>
                     <img
-                      src={`${BASE_URL}src/assets/pen.svg`}
+                      src={Pen}
                       className="w-[16px] h-[16px]"
-                      alt=""
+                      alt="Edit"
                     />
                   </button>
                 </td>
