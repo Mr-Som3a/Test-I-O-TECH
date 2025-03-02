@@ -10,6 +10,7 @@ const Users = () => {
   const [usersLength, setUsersLength] = useState(0);
   const [editUser,setEditUser]=useState<User|null>(null)
   const [update, setUpdate] = useState(false);
+
   const [open, setOpen] = useState(false);
   const [sortField, setSortField] = useState<keyof User | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -52,6 +53,7 @@ const Users = () => {
     setOpen(false);
   };
   const handleOpen = () => {
+    setUpdate(false)
     setOpen(true);
   };
   const handleUpdate = async (user: User) => {

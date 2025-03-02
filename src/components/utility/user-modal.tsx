@@ -8,9 +8,10 @@ interface Props {
   title?: string;
   update?:boolean
   usersLength:number
-  editUser:User|null
+  editUser?:User|null
   users:User[]
   setUsers: React.Dispatch<React.SetStateAction<User[]>>
+  // setEditUser: React.Dispatch<React.SetStateAction<User|null>>
 }
 
 
@@ -26,16 +27,17 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,e
 
       console.log("Submitted Data:", formData);
     e.preventDefault();
-    if(editUser){
+    if(update){
       console.log(editUser)
-      const index = users.indexOf(editUser);
+      const index = users.indexOf(editUser!);
           try {
-            users[index] = { id: editUser.id, name: formData.name, username: formData.username };
-            const res = await updateUser(editUser.id, users[index]);
+            users[index] = { id: editUser!.id, name: formData.name, username: formData.username };
+            const res = await updateUser(editUser!.id, users[index]);
             console.log(res);
           } catch (error) {
             console.log(error);
           }
+          
           onClose();
     }else{
         try {
@@ -73,7 +75,7 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,e
               </label>
               <input
                 name="name"
-                value={formData.name}
+                value={update?editUser?.name:formData.name}
                 onChange={handleChange}
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -88,7 +90,7 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,e
               </label>
               <input
                 name="username"
-                value={formData.username}
+                value={update?editUser?.username:formData.username}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               />
