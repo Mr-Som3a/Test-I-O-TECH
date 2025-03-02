@@ -1,59 +1,72 @@
 import { useState } from "react";
-import { User} from "../../model/interfaces";
+import { User } from "../../model/interfaces";
 import { postUser, updateUser } from "../../services/api";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  update?:boolean
-  usersLength:number
-  editUser?:User|null
-  users:User[]
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>
+  update?: boolean;
+  usersLength: number;
+  editUser?: User | null;
+  users: User[];
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   // setEditUser: React.Dispatch<React.SetStateAction<User|null>>
 }
 
-
-const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,editUser}: Props) => {
+const UserModal = ({
+  isOpen,
+  onClose,
+  title,
+  usersLength,
+  setUsers,
+  users,
+  update,
+  editUser,
+}: Props) => {
   if (!isOpen) return null;
-  const [formData, setFormData] = useState<User>({id:usersLength+1,name:"",username:""});
+  const [formData, setFormData] = useState<User>(
+    update
+      ? { id: editUser!.id, name: editUser!.name, username: editUser!.username }
+      : { id: usersLength + 1, name: "", username: "" }
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit= async(e:React.FormEvent)=>{
-
-      console.log("Submitted Data:", formData);
+  const handleSubmit = async (e: React.FormEvent) => {
+    console.log("Submitted Data:", formData);
     e.preventDefault();
-    if(update){
-      console.log(editUser)
+    if (update) {
+      console.log(editUser);
       const index = users.indexOf(editUser!);
-          try {
-            users[index] = { id: editUser!.id, name: formData.name, username: formData.username };
-            const res = await updateUser(editUser!.id, users[index]);
-            console.log(res);
-          } catch (error) {
-            console.log(error);
-          }
-          
-          onClose();
-    }else{
-        try {
-            setUsers([...users,formData])
-            const {data:newUser} = await postUser(formData)
-            console.log('user added successfuly',newUser)
-    
-            onClose()
-        } catch (error) {
-            console.log(error)
-            setUsers(users)
-        }
+      try {
+        users[index] = {
+          id: editUser!.id,
+          name: formData.name,
+          username: formData.username,
+        };
+        const res = await updateUser(editUser!.id, users[index]);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      onClose();
+    } else {
+      try {
+        setUsers([...users, formData]);
+        const { data: newUser } = await postUser(formData);
+        console.log("user added successfuly", newUser);
+
+        onClose();
+      } catch (error) {
+        console.log(error);
+        setUsers(users);
+      }
     }
-    
-    
-  }
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -75,7 +88,7 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,e
               </label>
               <input
                 name="name"
-                value={update?editUser?.name:formData.name}
+                value={formData.name}
                 onChange={handleChange}
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -90,7 +103,7 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,e
               </label>
               <input
                 name="username"
-                value={update?editUser?.username:formData.username}
+                value={ formData.username}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               />
@@ -104,12 +117,12 @@ const UserModal = ({ isOpen, onClose, title,usersLength ,setUsers,users,update,e
               Close
             </button>
             <button
-              onClick={(e)=>handleSubmit(e)}
+              onClick={(e) => handleSubmit(e)}
               className="px-4 py-2 bg-blue-600 text-white hover:bg-gray-400 rounded-lg"
             >
-              {update?"Save":"Submit"}
+              {update ? "Save" : "Submit"}
             </button>
-          </div> 
+          </div>
         </form>
       </div>
     </div>
