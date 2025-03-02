@@ -4,6 +4,7 @@ import { deleteUser, getUsers} from "../services/api";
 import UserModal from "./utility/user-modal";
 
 
+
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [usersLength, setUsersLength] = useState(0);
@@ -116,11 +117,11 @@ const Users = () => {
                 <td className="px-3 py-4">{user.name}</td>
                 <td className="px-3 py-4">{user.username}</td>
                 <td className="px-3 py-4">
-                  <button className="text-red-800" onClick={() => handleDelete(user.id)}>
-                   Delete
-                  </button>
                   <button className="text-cyan-500" onClick={() => handleUpdate(user)}>
-                    Edit
+                  Edit
+                  </button>
+                  <button className="text-red-800" onClick={() => handleDelete(user.id)}>
+                  Delete
                   </button>
                 </td>
               </tr>
