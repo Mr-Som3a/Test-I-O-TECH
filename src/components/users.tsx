@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { User } from "../model/interfaces";
 import { deleteUser, getUsers} from "../services/api";
 import UserModal from "./utility/user-modal";
+import Pen from '/pen.svg'
+import Trash from '/trash.svg'
 
 
 
@@ -120,10 +122,10 @@ const Users = () => {
                 <td className="px-3 py-4">{user.username}</td>
                 <td className="px-3 py-4">
                   <button className="text-cyan-500" onClick={() => handleUpdate(user)}>
-                  Edit
+                  <img className="w-4" src={Pen}/>
                   </button>
                   <button className="text-red-800" onClick={() => handleDelete(user.id)}>
-                  Delete
+                  <img className="w-4" src={Trash}/>
                   </button>
                 </td>
               </tr>
